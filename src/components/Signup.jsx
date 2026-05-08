@@ -15,6 +15,22 @@ const Signup = () => {
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
 
+
+    const [strength, setStrength] = useState("")
+
+
+    const checkPasswordStrength = (password) => {
+        if (password.length < 4) {
+            setStrength("Weak")
+        }
+        else if (password.length < 8) {
+            setStrength("Medium")
+        }
+        else {
+            setStrength("Strong")
+        }
+    }
+
     // function to handle submit 
     const handlesubmit = async (e) => {
         e.preventDefault()
@@ -27,7 +43,7 @@ const Signup = () => {
         formdata.append("password", password)
         formdata.append("phone", phone)
         try {
-            const response = await axios.post("http://higgs.alwaysdata.net/api/signup", formdata)
+            const response = await axios.post("http://evalynekifaru.alwaysdata.net/api/signup", formdata)
             setSuccess(response.data.message)
             setLoading("")
         } catch (error) {
@@ -36,8 +52,8 @@ const Signup = () => {
         }
     }
     return (
-        <div className="row mt-2 justify-content-center ">
-            <div className='col-md-6 card shadow'>
+        <div className="row mt-5 justify-content-center ">
+            <div className='col-md-6 card shadow '>
                 <h1 className='text-primary'> <u> <b>Sign up </b> </u></h1>
                 {/* bind the states  */}
                 <h2 className="text-warning">{loading}</h2>
@@ -47,7 +63,18 @@ const Signup = () => {
                 <form action="" onSubmit={handlesubmit}>
                     <input type="text" placeholder='👤 Enter username ' className='form-control bg-secondary text-white' onChange={(e) => setUsername(e.target.value)} /><br />
                     <input type="email" placeholder='✉️ Enter email' className='form-control bg-secondary text-white' onChange={(e) => setEmail(e.target.value)} /><br />
-                    <input type="password" placeholder='🔑 Enter password' className='form-control bg-secondary text-white' onChange={(e) => setPassword(e.target.value)} /><br />
+                    <input type="password" placeholder='🔑 Enter password' className='form-control bg-secondary text-white' onChange={(e) => { setPassword(e.target.value); checkPasswordStrength(e.target.value) }} /><br />
+                    +{password && (
+                        <p
+                            style={{
+                                color:
+                                    strength === "Weak"
+                                        ? "red"
+                                        : strength === "Medium"
+                                            ? "orange"
+                                            : "green",
+                            }}>Password Strength:{strength}</p>
+                    )}
                     <input type="number" placeholder='☎️ Enter phone' className='form-control bg-secondary text-white' onChange={(e) => setPhone(e.target.value)} /> <br /><br />
                     <button type='submit' className='btn btn-success w-100'>Sign Up</button><br />
                     <b><p>Already have an account?  <Link to="/signin">Sign In</Link>

@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Coustard:wght@400;900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Mystery+Quest&display=swap');
 
 body {
-font-family: "Mystery Quest", system-ui !important;
-background-image: url(../public/images/wallr.jpeg);
+  font-family: "Mystery Quest", system-ui !important;
+  margin: 0;
+  background: linear-gradient(to bottom, #000000, #ffffff);
+  padding: 0;
+  background-size: cover;        /* makes it fill the screen */
+  background-position: center;   /* keeps it centered */
+  background-repeat: no-repeat;  /* prevents tiling */
+  background-attachment: fixed;  /* optional: keeps it fixed on scroll */
+
+  min-height: 100vh;             /* ensures full viewport height */
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

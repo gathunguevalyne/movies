@@ -22,7 +22,7 @@ const Signin = () => {
         formdata.append("email", email)
         formdata.append("password", password)
         try {
-            const response = await axios.post("http://higgs.alwaysdata.net/api/signin", formdata)
+            const response = await axios.post("https://evalynekifaru.alwaysdata.net/api/signin", formdata)
             setSuccess(response.data.message)
             setLoading("")
         } catch (error) {
@@ -34,7 +34,7 @@ const Signin = () => {
     return (
         <div className="row mt-5 justify-content-center">
             <div className='col-md-6 card shadow'>
-                <h1 className='text-success'> <b> <u>Sign In</u> </b></h1>
+                <h1 className='text-primary'> <b> <u>Sign In</u> </b></h1>
                 {/* bind the states */}
                 <h3 className='text-warning'>{loading}</h3>
                 <h3 className='text-success'>{success}</h3>

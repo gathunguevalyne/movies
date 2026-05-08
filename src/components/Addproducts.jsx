@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-
-
 const Addproducts = () => {
     //declare our states here
     const [product_name, setProductName] = useState("")
@@ -26,7 +24,7 @@ const Addproducts = () => {
         formdata.append("product_cost", product_cost)
         formdata.append("product_photo", product_photo)
         try {
-            const response = await axios.post("http://evalynekifaru.alwaysdata.net/api/add_product", formdata)
+            const response = await axios.post("https://evalynekifaru.alwaysdata.net/api/add_product", formdata)
             setSuccess(response.data.message)
             setLoading("")
         } catch (error) {
@@ -37,7 +35,7 @@ const Addproducts = () => {
     return (
         <div className='row justify-content-center mt-3 '>
             <div className='col-md-8 card shadow p-4'>
-                <h1 className='text-success'> <b> <u>Add Products</u></b></h1>
+                <h1 className='text-primary'> <b> <u>Add Products</u></b></h1>
 
                 {/* bind the states  */}
                 <h2 className="text-warning">{loading}</h2>

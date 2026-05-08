@@ -4,8 +4,8 @@ import axios from 'axios'
 
 
 const Makepayment = () => {
-    const { singleproduct } = useLocation().state || {}
-    const imagepath = "http://evalynekifaru.alwaysdata.net/static/images/"
+    const { product } = useLocation().state || {}
+    const imagepath = "https://evalynekifaru.alwaysdata.net/static/images/"
 
     // declare the states here 
     const [phone, setPhone] = useState("")
@@ -23,9 +23,9 @@ const Makepayment = () => {
         // create an empty digital envelope 
         const formdata = new FormData()
         formdata.append("phone", phone)
-        formdata.append("amount", singleproduct.product_cost)
+        formdata.append("amount", product.product_cost)
         try {
-            const response = await axios.post("http://evalynekifaru.alwaysdata.net/api/mpesa_payment", formdata)
+            const response = await axios.post("https://evalynekifaru.alwaysdata.net/api/mpesa_payment", formdata)
             setSuccess(response.data.message)
             setLoading("")
         } catch (error) {
@@ -39,10 +39,10 @@ const Makepayment = () => {
             <h1 className='text-success'> <u> <b>Make Payment-Lipa na Mpesa </b></u></h1>
             <div className="col-md-6 card shadow p-4">
                 {/* image goes here  */}
-                <img src={imagepath + singleproduct.product_photo} alt="" style={{ height: "400px", objectFit: "contain" }} />
-                <h4 className='text-success text-start'>{singleproduct.product_name}</h4>
-                <p className='text-start'>{singleproduct.product_description}</p>
-                <b className='text-start text-danger'>Ksh {singleproduct.product_cost}</b> <br />
+                <img src={imagepath + product.product_photo} alt="" style={{ height: "400px", objectFit: "contain" }} />
+                <h4 className='text-success text-start'>{product.product_name}</h4>
+                <p className='text-start'>{product.product_description}</p>
+                <b className='text-start text-danger'>Ksh {product.product_cost}</b> <br />
 
                 {/* bind the state  */}
                 <h4 className='text-warning'>{loading}</h4>

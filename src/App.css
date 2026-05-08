@@ -4,11 +4,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
-.parisienne-regular {
-  font-family: "Parisienne", cursive;
+.monofett-regular {
+  font-family: "Monofett", monospace;
   font-weight: 400;
   font-style: normal;
 }
+
+
 
 .App-logo {
   height: 40vmin;
@@ -22,8 +24,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  background-image: url(../public/images/wall3.avif);
+  background-color: #04070e;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -31,11 +32,24 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+
   h1 {
-  color:blueviolet; /* change to any color you want */
+    color: rgb(226, 192, 43);
+    /* change to any color you want */
+    font-size: 100px;
+    /* increase size */
+    font-weight: 300;
+    /* extra bold */
   }
-  font-size: 800px;   /* increase size */
-  font-weight: 900;  /* extra bold */
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
+  ;
+  /* space from text */
 }
 
 .App-link {
@@ -50,4 +64,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* HORIZONTAL SCROLLBAR */
+
+::-webkit-scrollbar {
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
+}
+
+/* MOVIE CARDS */
+
+.card img {
+  transition: 0.3s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
 }
