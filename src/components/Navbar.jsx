@@ -3,149 +3,87 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
-    const [user, setUser] = useState(null);
-
     const navigate = useNavigate();
+
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
 
-        const checkUser = () => {
-
-            const loggedUser = localStorage.getItem("user");
-
-            // CHECK IF USER EXISTS
-            if (
-                loggedUser &&
-                loggedUser !== "undefined"
-            ) {
-
-                try {
-
-                    // PARSE USER SAFELY
-                    const parsedUser = JSON.parse(loggedUser);
-
-                    setUser(parsedUser);
-
-                } catch (error) {
-
-                    console.log("Invalid JSON in localStorage");
-
-                    // REMOVE BROKEN DATA
-                    localStorage.removeItem("user");
-
-                    setUser(null);
-                }
-
-            } else {
-
-                setUser(null);
-            }
+        const loadUser = () => {
+            const savedUser = JSON.parse(localStorage.getItem("user"));
+            setUser(savedUser);
         };
 
-        // RUN ON PAGE LOAD
-        checkUser();
+        // initial load
+        loadUser();
 
-        // LISTEN FOR USER CHANGES
-        window.addEventListener("userChanged", checkUser);
+        // listen for login/logout updates
+        window.addEventListener("userChanged", loadUser);
 
-        // CLEANUP
         return () => {
-            window.removeEventListener(
-                "userChanged",
-                checkUser
-            );
+            window.removeEventListener("userChanged", loadUser);
         };
 
     }, []);
 
-    // LOGOUT FUNCTION
     const logout = () => {
 
         localStorage.removeItem("user");
 
-        // UPDATE NAVBAR IMMEDIATELY
+        setUser(null);
+
         window.dispatchEvent(new Event("userChanged"));
 
-        navigate("/signin");
+        navigate("/");
     };
 
     return (
 
-        <nav
-            className="
-                navbar
-                bg-secondary
-                d-flex
-                justify-content-between
-                align-items-center
-                p-2
-            "
-        >
+        <nav className="navbar bg-secondary d-flex justify-content-between align-items-center p-2">
 
             {/* LOGO */}
             <h2 className="text-danger fw-bold">
-
                 FilmHouse
-
             </h2>
 
-            {/* NAVIGATION */}
+            {/* NAV LINKS */}
             <div className="nav-links">
 
                 {!user ? (
 
                     <>
-                        <Link
-                            to="/signup"
-                            className="btn btn-danger m-2"
-                        >
+                        <Link to="/signup" className="btn btn-danger m-2">
                             Sign Up
                         </Link>
 
-                        <Link
-                            to="/signin"
-                            className="btn btn-danger m-2"
-                        >
+                        <Link to="/signin" className="btn btn-danger m-2">
                             Sign In
                         </Link>
 
-                        <Link
-                            to="/addproducts"
-                            className="btn btn-danger m-2"
-                        >
-                            Add Products
-                        </Link>
-
-                        <Link
-                            to="/"
-                            className="btn btn-danger m-2"
-                        >
+                        {/* HIDDEN WHEN NOT LOGGED IN */}
+                        <Link to="/" className="btn btn-danger m-2">
                             Get Products
                         </Link>
                     </>
 
                 ) : (
 
-                    <div
-                        className="
-                            d-flex
-                            align-items-center
-                            gap-3
-                        "
-                    >
+                    <div className="d-flex align-items-center gap-3">
 
-                        {/* WELCOME USER */}
                         <span className="text-light fw-bold">
-
                             Welcome {user.username}
-
                         </span>
 
-                        {/* LOGOUT BUTTON */}
-                        <button
-                            className="btn btn-dark"
-                            onClick={logout}
-                        >
+                        {/* ONLY SHOW WHEN LOGGED IN */}
+                        <Link to="/addproducts" className="btn btn-danger">
+                            Add Products
+                        </Link>
+
+                        <Link to="/" className="btn btn-danger">
+                            Get Products
+                        </Link>
+
+                        <button className="btn btn-dark" onClick={logout}>
                             Logout
                         </button>
 

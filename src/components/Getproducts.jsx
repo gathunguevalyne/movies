@@ -7,6 +7,7 @@ import Footer from './Footer'
 const Getproducts = () => {
 
     const navigate = useNavigate()
+    // get saved user
 
     // STATES
     const [products, setProducts] = useState([])
@@ -146,6 +147,9 @@ const Getproducts = () => {
         <div className="container-fluid bg-dark text-light">
 
             <div className="row">
+
+
+
 
                 {/* CAROUSEL */}
                 <Carousel />
