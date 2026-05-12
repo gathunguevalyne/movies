@@ -117,7 +117,7 @@ const Navbar = () => {
                         </Link>
 
                         <Link
-                            to="/getproducts"
+                            to="/"
                             className="btn btn-danger m-2"
                         >
                             Get Products

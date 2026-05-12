@@ -7,11 +7,14 @@ const Addproducts = () => {
     const [product_description, setProductDescription] = useState("")
     const [product_cost, setProductCost] = useState("")
     const [product_photo, setProductPhoto] = useState("")
+    const [category, setCategory] = useState("")
+
 
     // define the three states for posting data
     const [loading, setLoading] = useState("")
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
+
 
     // function to handle submit 
     const handlesubmit = async (e) => {
@@ -23,6 +26,8 @@ const Addproducts = () => {
         formdata.append("product_description", product_description)
         formdata.append("product_cost", product_cost)
         formdata.append("product_photo", product_photo)
+        formdata.append("category", category)
+
         try {
             const response = await axios.post("https://evalynekifaru.alwaysdata.net/api/add_product", formdata)
             setSuccess(response.data.message)
@@ -46,6 +51,22 @@ const Addproducts = () => {
                     <textarea name="" id="" className='form-control bg-secondary text-white' placeholder='Enter Product Description' onChange={(e) => setProductDescription(e.target.value)}></textarea> <br />
                     <input type="number" placeholder='Enter Product Cost' className='form-control bg-secondary text-white' onChange={(e) => setProductCost(e.target.value)} /> <br />
                     <input type="file" accept='image/*' className='form-control ' onChange={(e) => setProductPhoto(e.target.files[0])} />
+                    <br />
+                    <select name="" id="" className='form-control bg-secondary text-white' onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Select Category</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Supernatural">Supernatural</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Anime">Anime</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Comedy-Drama">Comedy-Drama</option>
+                        <option value="Animated Comedy">Animated Comedy</option>
+                        <option value="Supernatural Drama">Supernatural Drama</option>
+                    </select> <br />
                     <button className='btn btn-success w-100' type='submit'>Add Product</button>
                 </form>
             </div>

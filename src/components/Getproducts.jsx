@@ -13,6 +13,7 @@ const Getproducts = () => {
     const [loading, setLoading] = useState("")
     const [error, setError] = useState("")
     const [search, setSearch] = useState("")
+    const [sortOption, setSortOption] = useState("")
 
     // IMAGE PATH
     const imagepath =
@@ -61,7 +62,7 @@ const Getproducts = () => {
 
     }, [])
 
-    // SAFE FILTER
+    // FILTER PRODUCTS
     const filteredProducts = products.filter((item) => {
 
         const name =
@@ -89,12 +90,48 @@ const Getproducts = () => {
         )
     })
 
+    // SORT PRODUCTS
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+
+        if (sortOption === "a-z") {
+
+            return a.product_name.localeCompare(
+                b.product_name
+            )
+        }
+
+        if (sortOption === "z-a") {
+
+            return b.product_name.localeCompare(
+                a.product_name
+            )
+        }
+
+        if (sortOption === "high-low") {
+
+            return (
+                Number(b.product_cost) -
+                Number(a.product_cost)
+            )
+        }
+
+        if (sortOption === "low-high") {
+
+            return (
+                Number(a.product_cost) -
+                Number(b.product_cost)
+            )
+        }
+
+        return 0
+    })
+
     // UNIQUE CATEGORIES
     const categories = [
 
         ...new Set(
 
-            filteredProducts
+            sortedProducts
                 .filter(
                     (item) => item.category
                 )
@@ -103,10 +140,6 @@ const Getproducts = () => {
                 )
         )
     ]
-
-    console.log("PRODUCTS:", products)
-
-    console.log("CATEGORIES:", categories)
 
     return (
 
@@ -117,8 +150,62 @@ const Getproducts = () => {
                 {/* CAROUSEL */}
                 <Carousel />
 
-                {/* SEARCH */}
+                {/* YOUTUBE VIDEO SECTION */}
                 <div className="col-md-12 mt-4 mb-4">
+
+                    <div className="row">
+
+                        {/* VIDEO 1 */}
+                        <div className="col-md-4 mb-3">
+
+                            <div className="ratio ratio-16x9">
+
+                                <iframe
+                                    src="https://www.youtube.com/embed/zHrsjepmhs4"
+                                    title="YouTube video 1"
+                                    allowFullScreen
+                                ></iframe>
+
+                            </div>
+
+                        </div>
+
+                        {/* VIDEO 2 */}
+                        <div className="col-md-4 mb-3">
+
+                            <div className="ratio ratio-16x9">
+
+                                <iframe
+                                    src="https://www.youtube.com/embed/hTTMXs6uOTM"
+                                    title="YouTube video 2"
+                                    allowFullScreen
+                                ></iframe>
+
+                            </div>
+
+                        </div>
+
+                        {/* VIDEO 3 */}
+                        <div className="col-md-4 mb-3">
+
+                            <div className="ratio ratio-16x9">
+
+                                <iframe
+                                    src="https://www.youtube.com/embed/-IZ9CbADOqA"
+                                    title="YouTube video 3"
+                                    allowFullScreen
+                                ></iframe>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {/* SEARCH + SORT */}
+                <div className="col-md-6 mt-4 mb-4">
 
                     <input
                         type="search"
@@ -129,6 +216,40 @@ const Getproducts = () => {
                             setSearch(e.target.value)
                         }
                     />
+
+                </div>
+
+                <div className="col-md-6 mt-4 mb-4">
+
+                    <select
+                        className="form-select form-select-lg"
+                        value={sortOption}
+                        onChange={(e) =>
+                            setSortOption(e.target.value)
+                        }
+                    >
+
+                        <option value="">
+                            Sort Movies
+                        </option>
+
+                        <option value="a-z">
+                            A - Z
+                        </option>
+
+                        <option value="z-a">
+                            Z - A
+                        </option>
+
+                        <option value="high-low">
+                            Highest Price - Lowest
+                        </option>
+
+                        <option value="low-high">
+                            Lowest Price - Highest
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -198,7 +319,7 @@ const Getproducts = () => {
                             >
 
                                 {
-                                    filteredProducts
+                                    sortedProducts
 
                                         .filter(
                                             (product) =>
@@ -219,9 +340,9 @@ const Getproducts = () => {
                                                 "
 
                                                 style={{
-                                                    minWidth: "250px",
-                                                    maxWidth: "250px",
-                                                    borderRadius: "15px",
+                                                    minWidth: "210px",
+                                                    maxWidth: "210px",
+                                                    borderRadius: "12px",
                                                     overflow: "hidden"
                                                 }}
                                             >
@@ -236,15 +357,21 @@ const Getproducts = () => {
                                                     alt=""
 
                                                     style={{
-                                                        height: "350px",
+                                                        height: "280px",
+                                                        width: "100%",
                                                         objectFit: "cover"
                                                     }}
                                                 />
 
                                                 {/* BODY */}
-                                                <div className="card-body">
+                                                <div className="card-body p-3">
 
-                                                    <h5 className="fw-bold">
+                                                    <h5
+                                                        className="fw-bold"
+                                                        style={{
+                                                            fontSize: "16px"
+                                                        }}
+                                                    >
 
                                                         {
                                                             product.product_name
@@ -254,8 +381,8 @@ const Getproducts = () => {
 
                                                     <p
                                                         style={{
-                                                            fontSize: "14px",
-                                                            height: "70px",
+                                                            fontSize: "13px",
+                                                            height: "60px",
                                                             overflow: "hidden"
                                                         }}
                                                     >
@@ -293,7 +420,7 @@ const Getproducts = () => {
                                                         }
                                                     >
 
-                                                        Watch Now
+                                                        Purchase  Now
 
                                                     </button>
 
